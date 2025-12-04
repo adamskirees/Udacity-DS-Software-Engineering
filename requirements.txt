@@ -1,0 +1,12 @@
+# Core Data Handling and Numerical Processing
+pandas
+numpy
+
+# Visualization
+matplotlib
+
+# NLP and Deep Learning Libraries for Toxic Comment Classification
+scikit-learn
+tensorflow
+gensim
+nltk
