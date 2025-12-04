@@ -6,7 +6,7 @@ This project is the second practical project in Udacitys new Data science nanode
 
 ---
 
-## 1. 🎯 Project Goal & Business Context (The CPA/BA Focus)
+## 1. 🎯 Project Goal & Business Context
 
 **Goal:** To build and test a robust Python package (`src/`) capable of performing statistical calculations on a dataset, wrapped in a professional project structure. The focus is on **maintainability** and **reproducibility** rather than complex modeling.
 
@@ -14,7 +14,7 @@ This project is the second practical project in Udacitys new Data science nanode
 
 ---
 
-## 2. 🚀 Setup and Installation (The Reproducibility Check)
+## 2. 🚀 Setup and Installation
 
 This project is built and managed using Git, Python 3.8+, and a virtual environment.
 
@@ -30,7 +30,7 @@ You must have Git and Python installed.
     cd Udacity-DS-Software-Engineering
     ```
 
-2.  **Create and Activate Virtual Environment (Bash/Linux):**
+2.  **Create and Activate Virtual Environment (Bash):**
     ```bash
     python -m venv venv
     source venv/bin/activate
