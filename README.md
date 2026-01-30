@@ -10,6 +10,8 @@ This project is the second practical project in Udacitys new Data science nanode
 
 **Goal:** To build and test a robust Python package (`src/`) capable of performing statistical calculations on a dataset, wrapped in a professional project structure. The focus is on **maintainability** and **reproducibility** rather than complex modeling.
 
+We are looking at employee performance, specifically, high-performing employees. The dashboard will show a final measure of employee performance and productivity and help determin if this employee may be a flight risk (AKA - looking for another job). 
+
 **Value Proposition:** This repository showcases the ability to move beyond Jupyter Notebooks by implementing modular, testable, and reusable Python code. This ensures stable data pipelines in production environments.
 
 ---
