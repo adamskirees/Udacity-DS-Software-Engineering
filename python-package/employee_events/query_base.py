@@ -1,16 +1,16 @@
-import sqlite3
-import pandas as pd
+from .sql_execution import SQLiteMixin
 
-class SQLMixin:
-    def query_to_dataframe(self, query, params=()):
-        """Handles the full lifecycle of a database request."""
-        # 1. Connect (using the path we'll define in utils)
-        conn = sqlite3.connect(self.db_path) 
-        
-        # 2. Execute & 3. Return (Pandas is great for this)
-        try:
-            df = pd.read_sql_query(query, conn, params=params)
-        finally:
-            # 4. Always close the connection
-            conn.close()
-        return df
+class QueryBase(SQLiteMixin):
+    def __init__(self, db_path):
+        """
+        Initializes the base class with the database location.
+        Because we inherit from SQLiteMixin, we now have access to self.run_query().
+        """
+        self.db_path = db_path
+
+    def get_all_teams(self):
+        """
+        A shared query example: Get all team names and IDs from the database.
+        """
+        query = "SELECT team_id, team_name FROM team"
+        return self.run_query(query)
