@@ -15,7 +15,7 @@ team_engine = Team(db_path)
 
 
 if __name__ == "__main__":
-    print("\U0001F914 Starting Dashboard Data Fetch...")
+    print("✅ Starting Dashboard Data Fetch...")
     
     # Get the high-level team risk summary
     risk_summary = team_engine.get_all_teams_risk_summary()
