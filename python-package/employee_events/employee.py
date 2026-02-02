@@ -3,7 +3,8 @@ from .query_base import QueryBase
 class Employee(QueryBase):
     def get_employee_performance(self, employee_id):
         """
-        Calculates score using 'employee_events' table from the ERD.
+        Calculates score using 'employee_events' table from the ERD. Retrieved using the
+        query_base's run_query() method.
         """
         query = """
         SELECT 
