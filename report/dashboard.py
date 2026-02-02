@@ -1,31 +1,52 @@
-import sys
-import os
-import pandas as pd
-
-# The "Path Bridge" so the dashboard can find your python-package - lets check its working first
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'python-package')))
-
+from fasthtml.common import *
+from report.src.components import DashboardPage, Sidebar, PerformanceChart # Assuming these exist in src
+from report.utils import load_model, get_db_path
 from employee_events.employee import Employee
 from employee_events.team import Team
 
-# Initialize our logic engines
-db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'python-package', 'employee_events', 'employee_events.db'))
-emp_engine = Employee(db_path)
-team_engine = Team(db_path)
+# Custom Component Subclassing
+class EmployeeDashboard(DashboardPage):
+    def __init__(self, emp_data):
+        self.emp_data = emp_data
+        # This is where you'd use inheritance to build your custom HTML structure
 
+app, rt = fast_app()
 
-if __name__ == "__main__":
-    print("✅ Starting Dashboard Data Fetch...")
-    
-    # Get the high-level team risk summary
+# Initialize our engines
+DB_PATH = get_db_path()
+emp_engine = Employee(DB_PATH)
+team_engine = Team(DB_PATH)
+model = load_model()
+
+# --- INDEX ROUTE ---
+@rt("/")
+def get():
+    return Titled("Employee Flight Risk Dashboard",
+        P("Welcome, Manager. Use the sidebar to navigate between Team and Employee views."),
+        A("View Team Stats", href="/team"),
+        A("View Employee Stats", href="/employee/1")
+    )
+
+# --- TEAM ROUTE ---
+@rt("/team")
+def get():
     risk_summary = team_engine.get_all_teams_risk_summary()
-    
-    print("\n--- TEAMS WITH HIGHEST RISK FLAGS ---")
-    if not risk_summary.empty:
-        print(risk_summary)
-    else:
-        print("No risks flagged! (Or check your 'notes' table data)")
+    # Fixed the typo here: itertuples()
+    rows = [Tr(Td(r.team_name), Td(str(r.risk_count))) for r in risk_summary.itertuples()]
+    return Titled("Team Risk Summary",
+        Table(Thead(Tr(Th("Team Name"), Th("Risk Flags"))),
+              Tbody(*rows))
+    )
 
+# --- EMPLOYEE ROUTE ---
+@rt("/employee/{id}")
+def get(id: int):
+    perf = emp_engine.get_employee_performance(id)
+    return Titled(f"Performance for Employee {id}",
+        P(f"Net Productivity Score: {perf.net_score.iloc[0]}"),
+        P(f"Positive Events: {perf.total_pos.iloc[0]}"),
+        P(f"Negative Events: {perf.total_neg.iloc[0]}")
+    )
 
 # My Emoji Reference
 # 🤔 Thinking Face \U0001F914
