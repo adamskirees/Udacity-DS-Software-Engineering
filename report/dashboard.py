@@ -15,8 +15,25 @@ from employee_events.team import Team
 
 # Custom Component Subclassing
 class EmployeeDashboard(DashboardPage):
-    def __init__(self, emp_data):
-        self.emp_data = emp_data
+    def __init__(self, emp_id, emp_name, metrics):
+        self.emp_id = emp_id
+        self.emp_name = emp_name
+        self.metrics = metrics
+        
+    def __ft__(self):
+        return Div(
+            H2(f"Performance Profile: {self.emp_name}"),
+            P(f"Employee ID: {self.emp_id}"),
+            # Displaying the scores we pulled
+            Ul(
+                Li(f"✅ Positive Events: {self.metrics['total_pos']}"),
+                Li(f"❌ Negative Events: {self.metrics['total_neg']}"),
+                Li(B(f"📊 Net Productivity: {self.metrics['net_score']}"))
+            ),
+            cls="container"
+        )
+
+
         # This is where you'd use inheritance to build your custom HTML structure
 
 app, rt = fast_app()
@@ -48,14 +65,20 @@ def get():
     )
 
 # --- EMPLOYEE ROUTE ---
+# --- EMPLOYEE ROUTE ---
 @rt("/employee/{id}")
 def get(id: int):
-    perf = emp_engine.get_employee_performance(id)
-    return Titled(f"Performance for Employee {id}",
-        P(f"Net Productivity Score: {perf.net_score.iloc[0]}"),
-        P(f"Positive Events: {perf.total_pos.iloc[0]}"),
-        P(f"Negative Events: {perf.total_neg.iloc[0]}")
-    )
+    # Fetch the combined dictionary (Name + Scores)
+    details = emp_engine.get_employee_details(id)
+    
+    if details:
+        # Pass the real database name and the dictionary to your component
+        return EmployeeDashboard(
+            emp_id=id, 
+            emp_name=details['name'], 
+            metrics=details
+        )
+    return Titled("Error", P(f"Employee {id} not found."))
 
 if __name__ == "__main__":
     serve()
