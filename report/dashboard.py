@@ -1,5 +1,14 @@
+import sys
+from pathlib import Path
+
+# Get the root directory and add the python-package folder to the search path
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.append(str(ROOT / "python-package"))
+
+
 from fasthtml.common import *
-from report.src.components import DashboardPage, Sidebar, PerformanceChart # Assuming these exist in src
+# Direct import from the sub-module to avoid __init__ confusion
+from report.combined_components.combined_component import DashboardPage, Sidebar, PerformanceChart
 from report.utils import load_model, get_db_path
 from employee_events.employee import Employee
 from employee_events.team import Team
@@ -47,6 +56,9 @@ def get(id: int):
         P(f"Positive Events: {perf.total_pos.iloc[0]}"),
         P(f"Negative Events: {perf.total_neg.iloc[0]}")
     )
+
+if __name__ == "__main__":
+    serve()
 
 # My Emoji Reference
 # 🤔 Thinking Face \U0001F914
