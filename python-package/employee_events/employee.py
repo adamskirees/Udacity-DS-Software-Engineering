@@ -4,27 +4,29 @@ from .query_base import QueryBase
 class Employee(QueryBase):
     def __init__(self, db_path):
         super().__init__(db_path)
-        """ the above calls the parent QueryBase setup, creates 'self.conn'"""
 
     def get_employee_details(self, employee_id):
         query = """
         SELECT 
-            (e.first_name || ' ' || e.last_name) as name, -- Glue first and last name together
-            SUM(positive_events) as total_pos,            -- Using actual column names from ERD
-            SUM(negative_events) as total_neg,
-            (SUM(positive_events) - SUM(negative_events)) as net_score
+            (e.first_name || ' ' || e.last_name) as name,
+            SUM(ev.positive_events) as total_pos, 
+            SUM(ev.negative_events) as total_neg,
+            (SUM(ev.positive_events) - SUM(ev.negative_events)) as net_score
         FROM employee e 
         LEFT JOIN employee_events ev ON e.employee_id = ev.employee_id 
         WHERE e.employee_id = ? 
         GROUP BY e.employee_id
         """
         df = self.run_query(query, params=(employee_id,))
-        return df.iloc[0].to_dict() if not df.empty else None
+        
+        # Check if we actually got a result and if 'name' isn't NULL
+        if df is not None and not df.empty and df.iloc[0]['name'] is not None:
+            return df.iloc[0].to_dict()
+        return None
+
+        
 
     def check_flight_risk(self, employee_id):
-        """
-        Checks for risk keywords in the 'notes' table from the ERD.
-        """
         query = """
         SELECT employee_id, note, note_date
         FROM notes
