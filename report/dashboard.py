@@ -13,7 +13,7 @@ from report.utils import load_model, get_db_path
 from employee_events.employee import Employee
 from employee_events.team import Team
 
-# 3. Custom Component
+# 3. Custom Component - Employee Dashboard. This is also where we add the visualization logic for the performance chart.
 class EmployeeDashboard(DashboardPage):
     def __init__(self, emp_id, emp_name, metrics, risk_prob):
         self.emp_id = emp_id
@@ -22,35 +22,34 @@ class EmployeeDashboard(DashboardPage):
         self.risk_prob = risk_prob
         
     def __ft__(self):
-        # Logic remains the same
         risk_color = "red" if self.risk_prob > 0.7 else "orange" if self.risk_prob > 0.4 else "green"
+        total = self.metrics['total_pos'] + self.metrics['total_neg']
+        perf_pct = (self.metrics['total_pos'] / total * 100) if total > 0 else 0
         
+        # We use standard Divs here to bypass any potential inheritance 'hiding' the visuals
         return Container(
-            # Using basic Divs with class names that your CSS can target
             Div(
-                H2(f"Analysis for {self.emp_name}"),
+                H2(f"Analysis: {self.emp_name}"),
                 Grid(
-                    # Column 1: Risk Info
+                    # VISUALIZATION 1
                     Div(
                         H4("Turnover Risk"),
-                        P(f"{self.risk_prob:.1%}", 
-                          style=f"color: {risk_color}; font-size: 2rem; font-weight: bold;"),
-                        P("Likelihood of departure based on score trends.", style="font-size: 0.8rem;")
+                        P(f"{self.risk_prob:.1%}", style=f"color: {risk_color}; font-size: 2rem; font-weight: bold;"),
+                        # Standard HTML Progress bar
+                        Progress(value=str(int(self.risk_prob * 100)), max="100", 
+                                 style=f"display: block; width: 100%; height: 20px; accent-color: {risk_color};"),
                     ),
-                    # Column 2: Metrics
+                    # VISUALIZATION 2
                     Div(
-                        H4("Metrics"),
-                        Ul(
-                            Li(f"Positive Events: {self.metrics['total_pos']}"),
-                            Li(f"Negative Events: {self.metrics['total_neg']}"),
-                            Li(B("Net Score: "), 
-                               Span(self.metrics['net_score'], 
-                                    style=f"color: {'green' if self.metrics['net_score'] > 0 else 'red'}"))
-                        )
+                        H4("Performance Balance"),
+                        P(f"Positive Ratio: {perf_pct:.1f}%"),
+                        Progress(value=str(int(perf_pct)), max="100", 
+                                 style="display: block; width: 100%; height: 20px; accent-color: green;"),
                     )
                 ),
-                A("← Back to Dashboard", href="/", cls="button outline"),
-                cls="card" # Targets card styling in report.css
+                Br(),
+                A("← Back to Dashboard", href="/team", cls="button outline"),
+                cls="card" 
             )
         )
 
