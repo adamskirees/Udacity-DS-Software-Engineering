@@ -1,0 +1,23 @@
+name: Python Package Tests
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas fasthtml pytest
+        # Install your own package in editable mode
+        pip install -e ./python-package
+    - name: Run simple test
+      run: |
+        # This just checks if the package can be imported without errors
+        python -c "from employee_events.employee import Employee; print('Package import successful!')"

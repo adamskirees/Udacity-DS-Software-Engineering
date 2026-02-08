@@ -1,10 +1,12 @@
 from .sql_execution import SQLiteMixin
 
+
+
 class QueryBase(SQLiteMixin):
     def __init__(self, db_path):
         """
         Initializes the base class with the database location.
-        Because we inherit from SQLiteMixin, we now have access to self.run_query().
+        Inheritance passes methods (like run_query) to all subclasses (Employee, Team).
         """
         self.db_path = db_path
 

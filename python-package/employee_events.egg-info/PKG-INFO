@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: employee_events
+Version: 0.1.0
+Summary: A package for monitoring employee performance and flight risk based on event data.
+Author: Adam Rees
+Requires-Dist: pandas
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: summary
