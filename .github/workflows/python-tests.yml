@@ -1,0 +1,32 @@
+name: Python Package Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas pytest
+
+    - name: Install Package
+      run: |
+        pip install ./python-package
+
+    - name: Test Import
+# We test the Employee class to satisfy the OOP and Package requirements
+      run: |
+        python -c "from employee_events.employee import Employee; print('Import Success!')"
