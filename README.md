@@ -1,24 +1,32 @@
 # ⚙️ Udacity Data Science Software Engineering Project
 
-### Project Status: CURRENTLY WORKING
+### Project Status: ✅ COMPLETE & VERIFIED
 
-This project is the second practical project in Udacitys new Data science nanodegree. 
+This repository contains a professional-grade software engineering project focused on HR Analytics, built for the Udacity Data Science Nanodegree. It features a modular Python package, a web-based dashboard, and automated CI/CD testing.
+
+The Engineering Perspective: From a Data Scientist's perspective, the primary highlight of this project was transitioning from exploratory notebooks to production-ready modular Python code. The architecture intentionally utilizes Inheritance, Mixins, and Polymorphism to create a scalable system for database querying and employee data modeling.
 
 ---
 
 ## 1. 🎯 Project Goal & Business Context
 
-**Goal:** To build and test a robust Python package (`src/`) capable of performing statistical calculations on a dataset, wrapped in a professional project structure. The focus is on **maintainability** and **reproducibility** rather than complex modeling.
+**The Problem:** Managers need a way to quantify employee performance and predict "Flight Risk" without sifting through thousands of raw interaction logs.
 
-We are looking at employee performance, specifically, high-performing employees. The dashboard will show a final measure of employee performance and productivity and help determin if this employee may be a flight risk (AKA - looking for another job). 
+**The Solution:** This project implements an Object-Oriented HR engine that:
 
-**Value Proposition:** This repository showcases the ability to move beyond Jupyter Notebooks by implementing modular, testable, and reusable Python code. This ensures stable data pipelines in production environments.
+    * Calculates Performance: Aggregates positive and negative workplace events into a "Net Score".
+
+    * Predicts Turnover Risk: Uses a Machine Learning model to determine the likelihood an employee is looking for a new role based on behavior patterns.
+
+    * Visualizes Insights: Provides a FastHTML dashboard with real-time data visualizations.
 
 ---
 
 ## 2. 🚀 Setup and Installation
 
-This project is built and managed using Git, Python 3.8+, and a virtual environment.
+This project is built and managed using Git, Python, and a virtual environment.
+
+Code is run via **python -m report.dashboard**
 
 ### Prerequisites
 
@@ -27,49 +35,57 @@ You must have Git and Python installed.
 ### Installation Steps
 
 1.  **Clone the Repository:**
-    ```bash
+    ```gitbash
     git clone [https://github.com/adamskirees/Udacity-DS-Software-Engineering.git](https://github.com/adamskirees/Udacity-DS-Software-Engineering.git)
     cd Udacity-DS-Software-Engineering
     ```
 
 2.  **Create and Activate Virtual Environment (Bash):**
-    ```bash
+    ```gitbash
     python -m venv venv
     source venv/bin/activate
-    ```
+    
 
 3.  **Install Dependencies:**
     ```bash
     pip install -r requirements.txt
+    pip install -e ./python-package
     ```
+4.  **Launch the Dashboard:**
+    ```bash
+    python -m report.dashboard
+
+    OR 
+    uvicorn report.dashboard:app --host 127.0.0.1 --port 5001 --reload
+
+    open http://localhost:5000 in your browswer
+
+
 
 ---
 
 ## 3. 📁 Repository Structure (The Engineering View)
 
-The project adheres to a standard, modular structure:
+The project follows a modular, engineering-first directory structure:
 
-| Folder | Purpose |
-| :--- | :--- |
-| **`src/`** | **SOURCE CODE:** Contains the production-ready, modular Python functions (e.g., `utils.py`, `calculator.py`). This code is unit tested. |
-| **`notebooks/`**| **ANALYSIS:** Contains exploratory data analysis (EDA) and demonstration notebooks (`.ipynb`) used to call the functions in `src/`. |
-| **`data/`** | **DATA:** Contains raw and processed data files (under 50MB). Large files are tracked via Git LFS. |
-| **`venv/`** | **ENVIRONMENT:** The isolated Python virtual environment (ignored by Git). |
-| **`requirements.txt`**| **DEPENDENCIES:** Lists all required Python packages and versions for environment setup. |
+Folder    / FilePurpose.
+github/workflows/          CI/CD: Automated tests that run on every push via GitHub Actions.
+python-package/            CORE LOGIC: The employee_events library. Includes setup.py and modular OOP classes.
+report/                    DASHBOARD: FastHTML application and visualization components.assets/MODELS/DB: Contains the SQLite database and the serialized ML model (.pkl).
+requirements.txt           DEPENDENCIES: Exact package versions for environment reproducibility.
 
 ---
 
-## 4. 🧪 Testing and CI
+## 4. 🧬 Engineering Highlights
+Object-Oriented Design: Uses Inheritance and Mixins to handle database connections efficiently across Employee and Team classes.
 
-* **Testing Framework:** Unit tests are written using Python's built-in `unittest` module.
-* **Running Tests:** Execute the following command from the project root:
-    ```bash
-    python -m unittest discover tests
-    ```
-* **Continuous Integration (CI):** *(Add this section once you implement a CI tool like GitHub Actions.)*
+Data Visualizations: Includes custom-built Progress Bar visualizations for Turnover Risk and Performance Balance.
+
+Automated Testing: Integrated with GitHub Actions to verify package imports and logic stability on every commit.
+
 
 ---
 
 ## 5. 🔗 Links
 
-* **Final Report/Demo Notebook:** 
+* **Is not a live hosted dashboard at present - github link only** 
