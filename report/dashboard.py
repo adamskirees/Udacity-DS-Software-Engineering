@@ -111,7 +111,16 @@ def get():
                             Li("Update Q1 event logs by Friday."),
                             Li("Check individual peer comparisons.")
                         ),
-                        style="background-color: #f9f9f9; font-size: 0.9rem;")
+                        style="background-color: #f9f9f9; font-size: 0.9rem;"),
+                    Card(H3("📝 Scoring Guide"),
+                         Ul(
+                            Li(B("Net Score: "), "Total Positives minus Negatives. (The 'Volume' of success)"),
+                            Li(B("Team Avg: "), f"Current benchmark is {global_avg:.1f}. Use this to spot outliers."),
+                            Li(B("Balance: "), "The ratio of positive work vs. total friction."),
+                            Li(B("Risk: "), "ML-calculated probability of resignation based on event history.")
+    ),
+    style="background-color: #f0f4f8; border-left: 5px solid #e67e22;"
+)
                 ),
                 cls="main-dashboard-wrapper" 
             )

@@ -1,6 +1,9 @@
 import pandas as pd
 from .query_base import QueryBase
 
+
+# This is the main class for employee-level queries. It inherits the DB commection and query from QueryBase, 
+# so we can focus on writing the SQL and processing the results.
 class Employee(QueryBase):
     def __init__(self, db_path):
         super().__init__(db_path)
@@ -23,8 +26,6 @@ class Employee(QueryBase):
         if df is not None and not df.empty and df.iloc[0]['name'] is not None:
             return df.iloc[0].to_dict()
         return None
-
-        
 
     def check_flight_risk(self, employee_id):
         query = """
