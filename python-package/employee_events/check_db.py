@@ -1,7 +1,8 @@
 import sqlite3
 import os
 
-# Updated path logic to find your DB
+#Confirming the data exists and we can connect - troubleshooting for "no such table" error. 
+# Updated path logic to find DB
 db_path = 'employee_events.db'
 
 def debug_average():

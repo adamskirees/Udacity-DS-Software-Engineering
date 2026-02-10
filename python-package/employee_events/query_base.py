@@ -7,6 +7,7 @@ class QueryBase(SQLiteMixin):
         """
         Initializes the base class with the database location.
         Inheritance passes methods (like run_query) to all subclasses (Employee, Team).
+        Parent class above - rememeber ! 
         """
         self.db_path = db_path
 

@@ -22,7 +22,7 @@ def inspect_db():
     if tables.empty:
         print("\n⚠️ The database is empty. Check if the path is correct!")
     else:
-        # 2. Automatically peek at the FIRST table found
+        # 2. Automatically look at the FIRST table found
         first_table = tables['name'].iloc[0]
         print(f"\n--- PEEKING AT TABLE: {first_table} ---")
         peek = pd.read_sql_query(f"SELECT * FROM {first_table} LIMIT 5;", conn)

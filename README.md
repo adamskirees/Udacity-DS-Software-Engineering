@@ -89,3 +89,7 @@ Automated Testing: Integrated with GitHub Actions to verify package imports and 
 ## 5. 🔗 Links
 
 * **Is not a live hosted dashboard at present - github link only** 
+
+Git hub link is above. 
+
+Udacity Project link here - https://learn.udacity.com/nd025?version=7.1.1&partKey=cd0171&lessonKey=7cc14e47-8811-44f6-8512-553f070cdcc3&project=rubric 

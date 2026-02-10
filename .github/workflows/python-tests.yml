@@ -27,6 +27,7 @@ jobs:
         pip install ./python-package
 
     - name: Test Import
-# We test the Employee class to satisfy the OOP and Package requirements
+    # We test the Employee class to satisfy the OOP and Package requirements. If this import fails, 
+    # it means there's an issue with the package structure or the Employee class itself.
       run: |
         python -c "from employee_events.employee import Employee; print('Import Success!')"

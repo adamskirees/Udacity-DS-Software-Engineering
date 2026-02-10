@@ -2,14 +2,14 @@ from fasthtml.common import *
 
 class DashboardPage:
     """
-    The base layout for all pages in your dashboard.
+    The base layout for all pages in your dashboard. Basic look for every page. 
     Subclass this in dashboard.py to customize your content.
     """
     def __init__(self, title="Manager Dashboard"):
         self.title = title
 
     def __ft__(self):
-        # __ft__ allows FastHTML to render this class as a component
+        # __ft__ allows FastHTML to render this class as a component - saves from having to write a render method.
         return Title(self.title), Main(
             Header(H1(self.title), cls="container"),
             Div(cls="container")(self.render_content()),

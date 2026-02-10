@@ -1,5 +1,7 @@
 from setuptools import setup, find_packages
 
+# assist with installing dependencies and packaging code for distribution.
+
 setup(
     name="employee_events",
     version="0.1.0",

@@ -5,9 +5,10 @@ class SQLiteMixin:
     """
     Handles the lifecycle of a database request:
     Connect -> Execute -> Fetch as DataFrame -> Close.
+    Does the heavy lifting of database interaction, so we can then focus on specific queries. 
     """
     def run_query(self, query: str, params: tuple = ()):
-        # self.db_path will be defined in the class that inherits this
+        # self.db_path will be defined in the class that inherits this - keeps it modular!
         conn = sqlite3.connect(self.db_path)
         
         try:

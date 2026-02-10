@@ -1,6 +1,7 @@
 import pickle
 from pathlib import Path
 
+# To help with mapping the folder strucutre, so the important files work no matter where we run them from !! 
 # 1. Get the path of utils.py (E:\...\Udacity-DS-Software-Engineering\report\utils.py)
 # 2. .parent goes to 'report'
 # 3. .parent.parent goes to the ROOT 'Udacity-DS-Software-Engineering'

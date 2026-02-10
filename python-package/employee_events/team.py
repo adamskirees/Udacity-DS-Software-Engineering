@@ -3,11 +3,13 @@ from .query_base import QueryBase
 class Team(QueryBase):
     """
     Handles database logic for Team and Manager level analytics.
+    Creates the list of neagative employee scores. 
     """
     
     def get_team_stats(self, team_id):
         """
         Aggregates performance across a whole team to find the average net_score.
+        could I do this a better way ?? 
         """
         query = """
         SELECT 
